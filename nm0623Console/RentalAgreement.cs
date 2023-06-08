@@ -48,7 +48,7 @@ namespace nm0623
             DailyRentalCharge = tool.DailyCharge;
             ChargeDays = CalculateChargeDays(tool, checkOutDate, rentalDays);
             PreDiscountCharge = ChargeDays * DailyRentalCharge;
-            DiscountAmount = Math.Round(Decimal.Parse("0." + discountPercent.ToString()) * PreDiscountCharge, 2);
+            DiscountAmount = Math.Round((discountPercent == 100 ? 1.00m : Decimal.Parse("0." + discountPercent.ToString())) * PreDiscountCharge, 2);
             FinalCharge = PreDiscountCharge - DiscountAmount;
             RentalAgreementText = String.Format("Tool code: {0}", ToolCode) + Environment.NewLine +
                 String.Format("Tool type: {0}", ToolType) + Environment.NewLine +
