@@ -20,23 +20,23 @@ namespace nm0623
     ///     checkOutDate: A DateTime oject containing the date the customer rented the tool
     ///     
     /// </summary>
-    internal class RentalAgreement
+    public class RentalAgreement
     {
-        protected internal string ToolCode { get; set; }
-        protected internal string ToolType { get; set; }
-        protected internal string Brand { get; set; }
-        protected internal int RentalDays { get; set; }
-        protected internal DateTime CheckOutDate { get; set; }
-        protected internal DateTime DueDate { get; set; }
-        protected internal decimal DailyRentalCharge { get; set; }
-        protected internal int ChargeDays { get; set; }
-        protected internal decimal PreDiscountCharge { get; set; }
-        protected internal int DiscountPercent { get; set; }
-        protected internal decimal DiscountAmount { get; set; }
-        protected internal decimal FinalCharge { get; set; }
-        protected internal string RentalAgreementText { get; set; }
+        public string ToolCode { get; set; }
+        public string ToolType { get; set; }
+        public string Brand { get; set; }
+        public int RentalDays { get; set; }
+        public DateTime CheckOutDate { get; set; }
+        public DateTime DueDate { get; set; }
+        public decimal DailyRentalCharge { get; set; }
+        public int ChargeDays { get; set; }
+        public decimal PreDiscountCharge { get; set; }
+        public int DiscountPercent { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal FinalCharge { get; set; }
+        public string RentalAgreementText { get; set; }
 
-        protected internal RentalAgreement(Tool tool, int rentalDays, int discountPercent, DateTime checkOutDate)
+        public RentalAgreement(Tool tool, int rentalDays, int discountPercent, DateTime checkOutDate)
         {
             ToolCode = tool.ToolCode;
             ToolType = tool.ToolType;
@@ -103,7 +103,7 @@ namespace nm0623
 
             return newRentalDays;
         }
-        protected internal void PrintRentalAgreement()
+        public void PrintRentalAgreement()
         {
             Console.WriteLine(RentalAgreementText);
         }

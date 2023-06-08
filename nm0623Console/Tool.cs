@@ -14,18 +14,18 @@ namespace nm0623
     ///     toolCode: The four-letter reference code for the tool in our system
     ///     
     /// </summary>
-    internal class Tool
+    public class Tool
     {
-        protected internal string ToolCode { get; set; } //Reference name of the tool in our system
-        protected internal string ToolType { get; set; } //English name for the tool
-        protected internal string Brand { get; set; } //Maker/Brand of the tool
-        protected internal decimal DailyCharge { get; set; } //Cost per day to rent the tool
-        protected internal bool WeekdayCharge { get; set; } //Do we charge for this tool on weekdays?
-        protected internal bool WeekendCharge { get; set; } //Do we charge for this tool on weekends?
-        protected internal bool HolidayCharge { get; set; } //Do we charge for this tool on holidays?
+        public string ToolCode { get; set; } //Reference name of the tool in our system
+        public string ToolType { get; set; } //English name for the tool
+        public string Brand { get; set; } //Maker/Brand of the tool
+        public decimal DailyCharge { get; set; } //Cost per day to rent the tool
+        public bool WeekdayCharge { get; set; } //Do we charge for this tool on weekdays?
+        public bool WeekendCharge { get; set; } //Do we charge for this tool on weekends?
+        public bool HolidayCharge { get; set; } //Do we charge for this tool on holidays?
 
 
-        protected internal Tool(string toolCode)
+        public Tool(string toolCode)
         {
             switch (toolCode.ToUpper().Trim())
             {
@@ -55,7 +55,7 @@ namespace nm0623
                     break;
                 case "JAKR":
                     ToolType = "Jackhammer";
-                    Brand = "Rigid";
+                    Brand = "Ridgid";
                     DailyCharge = decimal.Parse("2.99");
                     WeekdayCharge = true;
                     WeekendCharge = false;

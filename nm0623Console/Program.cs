@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace nm0623
 {
-    internal class Program
+    public static class Program
     {
-        protected internal static void Checkout(string toolCode, int rentalDayCount, int discountPercent, DateTime checkoutDate)
+        public static void Checkout(string toolCode, int rentalDayCount, int discountPercent, DateTime checkoutDate)
         {
             if (rentalDayCount < 1) { throw new ArgumentException("The provided number of days for the rental was less than one. The customer must rent the tool for a minimum of one day."); }
             if (discountPercent < 0 || discountPercent > 100) { throw new ArgumentException("The discount given was not between zero and 100. A percentage must be greater than or equal to zero and less than or equal to 100."); }
