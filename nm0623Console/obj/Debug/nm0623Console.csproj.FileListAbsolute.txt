@@ -1,0 +1,16 @@
+C:\Users\natem\source\repos\nm0623Console\nm0623Console\bin\Debug\nm0623Console.exe.config
+C:\Users\natem\source\repos\nm0623Console\nm0623Console\bin\Debug\nm0623Console.exe
+C:\Users\natem\source\repos\nm0623Console\nm0623Console\bin\Debug\nm0623Console.pdb
+C:\Users\natem\source\repos\nm0623Console\nm0623Console\obj\Debug\nm0623Console.csproj.AssemblyReference.cache
+C:\Users\natem\source\repos\nm0623Console\nm0623Console\obj\Debug\nm0623Console.csproj.SuggestedBindingRedirects.cache
+C:\Users\natem\source\repos\nm0623Console\nm0623Console\obj\Debug\nm0623Console.csproj.CoreCompileInputs.cache
+C:\Users\natem\source\repos\nm0623Console\nm0623Console\obj\Debug\nm0623Console.exe
+C:\Users\natem\source\repos\nm0623Console\nm0623Console\obj\Debug\nm0623Console.pdb
+C:\Users\natem\source\repos\nm0623\nm0623Console\bin\Debug\nm0623Console.exe.config
+C:\Users\natem\source\repos\nm0623\nm0623Console\bin\Debug\nm0623Console.exe
+C:\Users\natem\source\repos\nm0623\nm0623Console\bin\Debug\nm0623Console.pdb
+C:\Users\natem\source\repos\nm0623\nm0623Console\obj\Debug\nm0623Console.csproj.AssemblyReference.cache
+C:\Users\natem\source\repos\nm0623\nm0623Console\obj\Debug\nm0623Console.csproj.SuggestedBindingRedirects.cache
+C:\Users\natem\source\repos\nm0623\nm0623Console\obj\Debug\nm0623Console.csproj.CoreCompileInputs.cache
+C:\Users\natem\source\repos\nm0623\nm0623Console\obj\Debug\nm0623Console.exe
+C:\Users\natem\source\repos\nm0623\nm0623Console\obj\Debug\nm0623Console.pdb
