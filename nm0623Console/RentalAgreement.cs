@@ -12,7 +12,7 @@ namespace nm0623
     /// 
     /// Constructor Arguments: 
     /// 
-    ///     tool: An object of class Tool that the customer is renting
+    ///     toolCode: An string containing the tool code to create the rental agreement on
     ///     rentalDays: An integer containing the number of days the user plans to rent the tool
     ///         - Must be one or greater
     ///     discountPercent: The percentage of the price to remove as a discount for the customer
@@ -20,15 +20,11 @@ namespace nm0623
     ///     checkOutDate: A DateTime oject containing the date the customer rented the tool
     ///     
     /// </summary>
-    public class RentalAgreement
+    public class RentalAgreement : Tool
     {
-        public string ToolCode { get; set; }
-        public string ToolType { get; set; }
-        public string Brand { get; set; }
-        public int RentalDays { get; set; }
-        public DateTime CheckOutDate { get; set; }
-        public DateTime DueDate { get; set; }
-        public decimal DailyRentalCharge { get; set; }
+        public int RentalDays { get; set; } //Number of days the customer wishes to rent the tool
+        public DateTime CheckOutDate { get; set; } //Date the customer wishes to first checkout the tool
+        public DateTime DueDate { get; set; } //Date the item must be returned
         public int ChargeDays { get; set; }
         public decimal PreDiscountCharge { get; set; }
         public int DiscountPercent { get; set; }
@@ -36,18 +32,14 @@ namespace nm0623
         public decimal FinalCharge { get; set; }
         public string RentalAgreementText { get; set; }
 
-        public RentalAgreement(Tool tool, int rentalDays, int discountPercent, DateTime checkOutDate)
+        public RentalAgreement(string toolCode, int rentalDays, int discountPercent, DateTime checkOutDate): base(toolCode)
         {
-            ToolCode = tool.ToolCode;
-            ToolType = tool.ToolType;
-            Brand = tool.Brand;
             RentalDays = rentalDays;
             CheckOutDate = checkOutDate;
             DueDate = checkOutDate.AddDays(rentalDays);
             DiscountPercent = discountPercent;
-            DailyRentalCharge = tool.DailyCharge;
-            ChargeDays = CalculateChargeDays(tool, checkOutDate, rentalDays);
-            PreDiscountCharge = ChargeDays * DailyRentalCharge;
+            ChargeDays = CalculateChargeDays(this, checkOutDate, rentalDays);
+            PreDiscountCharge = ChargeDays * this.DailyCharge;
             DiscountAmount = Math.Round((discountPercent == 100 ? 1.00m : Decimal.Parse("0." + discountPercent.ToString())) * PreDiscountCharge, 2);
             FinalCharge = PreDiscountCharge - DiscountAmount;
             RentalAgreementText = String.Format("Tool code: {0}", ToolCode) + Environment.NewLine +
@@ -56,7 +48,7 @@ namespace nm0623
                 String.Format("Rental days: {0}", RentalDays) + Environment.NewLine +
                 String.Format("Check out date: {0}", CheckOutDate.ToString("MM/dd/yy")) + Environment.NewLine +
                 String.Format("Due date: {0}", DueDate.ToString("MM/dd/yy")) + Environment.NewLine +
-                String.Format("Daily rental charge: {0:C}", DailyRentalCharge) + Environment.NewLine +
+                String.Format("Daily rental charge: {0:C}", this.DailyCharge) + Environment.NewLine +
                 String.Format("Charge days: {0}", ChargeDays) + Environment.NewLine +
                 String.Format("Pre-discount charge: {0:C}", PreDiscountCharge) + Environment.NewLine +
                 String.Format("Discount percent: {0}%", DiscountPercent) + Environment.NewLine +

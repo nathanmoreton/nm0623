@@ -25,7 +25,7 @@ namespace nm0623
         public bool HolidayCharge { get; set; } //Do we charge for this tool on holidays?
 
 
-        public Tool(string toolCode)
+        public Tool(string toolCode)  //Uses a switch case to assign default values to the properties based on the provided tool code
         {
             switch (toolCode.ToUpper().Trim())
             {
