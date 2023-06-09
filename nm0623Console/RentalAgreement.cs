@@ -24,13 +24,13 @@ namespace nm0623
     {
         public int RentalDays { get; set; } //Number of days the customer wishes to rent the tool
         public DateTime CheckOutDate { get; set; } //Date the customer wishes to first checkout the tool
-        public DateTime DueDate { get; set; } //Date the item must be returned
-        public int ChargeDays { get; set; }
-        public decimal PreDiscountCharge { get; set; }
-        public int DiscountPercent { get; set; }
-        public decimal DiscountAmount { get; set; }
-        public decimal FinalCharge { get; set; }
-        public string RentalAgreementText { get; set; }
+        public DateTime DueDate { get; set; } //Date the item must be returned. Calculated by adding the RentalDays to the CheckOutDate
+        public int ChargeDays { get; set; } //Days to charge a rental fee for (total rental days minus the weekends or holidays if they are free for this tool type
+        public decimal PreDiscountCharge { get; set; } //Total price of the rental before the discount percent is applied. Calculated as ChargeDays * the daily cost for this tool
+        public int DiscountPercent { get; set; } //Whole number between zero and 100 that represents how much of a discount this order receives
+        public decimal DiscountAmount { get; set; } //Dollar amount of the discount. Calculated as discount percentage * prediscount charge / 100
+        public decimal FinalCharge { get; set; } //Final price of the rental. Calculated as PreDiscountCharge-DiscountAmount
+        public string RentalAgreementText { get; set; } //Text of the rental agreement that gets generated
 
         public RentalAgreement(string toolCode, int rentalDays, int discountPercent, DateTime checkOutDate): base(toolCode)
         {
@@ -56,12 +56,13 @@ namespace nm0623
                 String.Format("Final charge: {0:C}", FinalCharge);
         }
 
-        private static List<DateTime> GetHolidays(int year)
+        private static List<DateTime> GetHolidays(int year) //Returns a list of DateTimes that contains the holidays for the year the tools is checked out. 
         {
             var holidayList = new List<DateTime>();
             DateTime independenceDay = new DateTime(year, 7, 4);
             DateTime laborDay = new DateTime(year, 9, 1);
 
+            //Check if Independence day is on a weekend. If it is, assign the official holiday as the nearest weekday.
             switch (independenceDay.DayOfWeek)
             {
                 case DayOfWeek.Saturday:
@@ -72,6 +73,7 @@ namespace nm0623
                     holidayList.Add(independenceDay); break;
             }
 
+            //Find the first monday in September and assign it to Labor Day
             while (laborDay.DayOfWeek != DayOfWeek.Monday)
             {
                 laborDay = laborDay.AddDays(1);
@@ -81,7 +83,7 @@ namespace nm0623
 
             return holidayList;
         }
-        private static int CalculateChargeDays(Tool tool, DateTime checkOutDate, int rentalDays)
+        private static int CalculateChargeDays(Tool tool, DateTime checkOutDate, int rentalDays) //Used to calculate the actual number of days to charge by subtracting any necessary weekends or holidays.
         {
             int newRentalDays = rentalDays;
             var holidays = GetHolidays(checkOutDate.Year);
@@ -95,7 +97,7 @@ namespace nm0623
 
             return newRentalDays;
         }
-        public void PrintRentalAgreement()
+        public void PrintRentalAgreement() //Prints the rental agreement to the console
         {
             Console.WriteLine(RentalAgreementText);
         }
