@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +21,9 @@ namespace nm0623
     ///     checkOutDate: A DateTime oject containing the date the customer rented the tool
     ///     
     /// </summary>
-    public class RentalAgreement : Tool
+    public class RentalAgreement
     {
+        public Tool Tool { get; set; }
         public int RentalDays { get; set; } //Number of days the customer wishes to rent the tool
         public DateTime CheckOutDate { get; set; } //Date the customer wishes to first checkout the tool
         public DateTime DueDate { get; set; } //Date the item must be returned. Calculated by adding the RentalDays to the CheckOutDate
@@ -32,30 +34,38 @@ namespace nm0623
         public decimal FinalCharge { get; set; } //Final price of the rental. Calculated as PreDiscountCharge-DiscountAmount
         public string RentalAgreementText { get; set; } //Text of the rental agreement that gets generated
 
-        public RentalAgreement(string toolCode, int rentalDays, int discountPercent, DateTime checkOutDate): base(toolCode)
+        public RentalAgreement(Tool tool, int rentalDays, int discountPercent, DateTime checkOutDate)
         {
+            Tool = tool;
             RentalDays = rentalDays;
             CheckOutDate = checkOutDate;
             DueDate = checkOutDate.AddDays(rentalDays);
             DiscountPercent = discountPercent;
-            ChargeDays = CalculateChargeDays(this, checkOutDate, rentalDays);
-            PreDiscountCharge = ChargeDays * this.DailyCharge;
-            DiscountAmount = Math.Round((discountPercent == 100 ? 1.00m : Decimal.Parse("0." + discountPercent.ToString())) * PreDiscountCharge, 2);
+            ChargeDays = CalculateChargeDays(tool, checkOutDate, rentalDays);
+            PreDiscountCharge = ChargeDays * tool.DailyCharge;
+            DiscountAmount = CalculateDiscount(discountPercent, PreDiscountCharge);
             FinalCharge = PreDiscountCharge - DiscountAmount;
-            RentalAgreementText = String.Format("Tool code: {0}", ToolCode) + Environment.NewLine +
-                String.Format("Tool type: {0}", ToolType) + Environment.NewLine +
-                String.Format("Brand: {0}", Brand) + Environment.NewLine +
+            RentalAgreementText = FormatRentalAgreement();
+        }
+        private string FormatRentalAgreement() //Gets the rental agreement text in the form of a string
+        {
+            return String.Format("Tool code: {0}", Tool.ToolCode) + Environment.NewLine +
+                String.Format("Tool type: {0}", Tool.ToolType) + Environment.NewLine +
+                String.Format("Brand: {0}", Tool.Brand) + Environment.NewLine +
                 String.Format("Rental days: {0}", RentalDays) + Environment.NewLine +
                 String.Format("Check out date: {0}", CheckOutDate.ToString("MM/dd/yy")) + Environment.NewLine +
                 String.Format("Due date: {0}", DueDate.ToString("MM/dd/yy")) + Environment.NewLine +
-                String.Format("Daily rental charge: {0:C}", this.DailyCharge) + Environment.NewLine +
+                String.Format("Daily rental charge: {0:C}", Tool.DailyCharge) + Environment.NewLine +
                 String.Format("Charge days: {0}", ChargeDays) + Environment.NewLine +
                 String.Format("Pre-discount charge: {0:C}", PreDiscountCharge) + Environment.NewLine +
                 String.Format("Discount percent: {0}%", DiscountPercent) + Environment.NewLine +
                 String.Format("Discount amount: {0:C}", DiscountAmount) + Environment.NewLine +
                 String.Format("Final charge: {0:C}", FinalCharge);
         }
-
+        private decimal CalculateDiscount(int discountPercent, decimal preDiscountCharge) //Calculates the discount amount by multiplying the discount percent by the prediscount charge
+        {
+            return Math.Round((discountPercent == 100 ? 1.00m : Decimal.Parse("0." + discountPercent.ToString())) * preDiscountCharge, 2);
+        }
         private static List<DateTime> GetHolidays(int year) //Returns a list of DateTimes that contains the holidays for the year the tools is checked out. 
         {
             var holidayList = new List<DateTime>();

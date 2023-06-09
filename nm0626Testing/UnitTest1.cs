@@ -41,7 +41,7 @@ namespace nm0626Testing
                 "Final charge: $3.58";
 
             //Act
-            var rentalAgreement1 = new RentalAgreement(toolCode, rentalDays, discountPercent, date);
+            var rentalAgreement1 = new RentalAgreement(new Tool(toolCode), rentalDays, discountPercent, date);
 
             //Assert
             Assert.AreEqual(expected, rentalAgreement1.RentalAgreementText);
@@ -68,7 +68,7 @@ namespace nm0626Testing
                 "Final charge: $3.35";
 
             //Act
-            var rentalAgreement1 = new RentalAgreement(toolCode, rentalDays, discountPercent, date);
+            var rentalAgreement1 = new RentalAgreement(new Tool(toolCode), rentalDays, discountPercent, date);
 
             //Assert
             Assert.AreEqual(expected, rentalAgreement1.RentalAgreementText);
@@ -95,7 +95,7 @@ namespace nm0626Testing
                 "Final charge: $8.97";
 
             //Act
-            var rentalAgreement1 = new RentalAgreement(toolCode, rentalDays, discountPercent, date);
+            var rentalAgreement1 = new RentalAgreement(new Tool(toolCode), rentalDays, discountPercent, date);
 
             //Assert
             Assert.AreEqual(expected, rentalAgreement1.RentalAgreementText);
@@ -122,7 +122,7 @@ namespace nm0626Testing
                 "Final charge: $17.94";
 
             //Act
-            var rentalAgreement1 = new RentalAgreement(toolCode, rentalDays, discountPercent, date);
+            var rentalAgreement1 = new RentalAgreement(new Tool(toolCode), rentalDays, discountPercent, date);
 
             //Assert
             Assert.AreEqual(expected, rentalAgreement1.RentalAgreementText);
@@ -149,7 +149,7 @@ namespace nm0626Testing
                 "Final charge: $1.49";
 
             //Act
-            var rentalAgreement1 = new RentalAgreement(toolCode, rentalDays, discountPercent, date);
+            var rentalAgreement1 = new RentalAgreement(new Tool(toolCode), rentalDays, discountPercent, date);
 
             //Assert
             Assert.AreEqual(expected, rentalAgreement1.RentalAgreementText);

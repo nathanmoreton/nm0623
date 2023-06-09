@@ -33,7 +33,7 @@ namespace nm0623
             var tool = new Tool(toolCode); 
 
             //Declares and initializes a RentalAgreement object using the arguments and the Tool object created above.
-            var rentalAggrement = new RentalAgreement(toolCode, rentalDayCount, discountPercent, checkoutDate); 
+            var rentalAggrement = new RentalAgreement(tool, rentalDayCount, discountPercent, checkoutDate); 
 
             //Prints the generated rental agreement
             rentalAggrement.PrintRentalAgreement();
