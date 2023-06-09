@@ -154,5 +154,18 @@ namespace nm0626Testing
             //Assert
             Assert.AreEqual(expected, rentalAgreement1.RentalAgreementText);
         }
+        [TestMethod]
+        public void TestMethod7()
+        {
+            //Arrange
+            string toolCode = "JAKR";
+            int rentalDays = -1;
+            int discountPercent = 10;
+            DateTime date = Convert.ToDateTime("09/03/15");
+
+            //Assert
+            Assert.ThrowsException<System.ArgumentException>(() => Program.Checkout(toolCode, rentalDays, discountPercent, date));
+        }
+
     }
 }
