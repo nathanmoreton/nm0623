@@ -23,16 +23,16 @@ namespace nm0623
     /// </summary>
     public class RentalAgreement
     {
-        public Tool Tool { get; set; }
+        public Tool Tool { get; private set; }
         public int RentalDays { get; set; } //Number of days the customer wishes to rent the tool
         public DateTime CheckOutDate { get; set; } //Date the customer wishes to first checkout the tool
-        public DateTime DueDate { get; set; } //Date the item must be returned. Calculated by adding the RentalDays to the CheckOutDate
-        public int ChargeDays { get; set; } //Days to charge a rental fee for (total rental days minus the weekends or holidays if they are free for this tool type
-        public decimal PreDiscountCharge { get; set; } //Total price of the rental before the discount percent is applied. Calculated as ChargeDays * the daily cost for this tool
+        public DateTime DueDate { get; private set; } //Date the item must be returned. Calculated by adding the RentalDays to the CheckOutDate
+        public int ChargeDays { get; private set; } //Days to charge a rental fee for (total rental days minus the weekends or holidays if they are free for this tool type
+        public decimal PreDiscountCharge { get; private set; } //Total price of the rental before the discount percent is applied. Calculated as ChargeDays * the daily cost for this tool
         public int DiscountPercent { get; set; } //Whole number between zero and 100 that represents how much of a discount this order receives
-        public decimal DiscountAmount { get; set; } //Dollar amount of the discount. Calculated as discount percentage * prediscount charge / 100
-        public decimal FinalCharge { get; set; } //Final price of the rental. Calculated as PreDiscountCharge-DiscountAmount
-        public string RentalAgreementText { get; set; } //Text of the rental agreement that gets generated
+        public decimal DiscountAmount { get; private set; } //Dollar amount of the discount. Calculated as discount percentage * prediscount charge / 100
+        public decimal FinalCharge { get; private set; } //Final price of the rental. Calculated as PreDiscountCharge-DiscountAmount
+        public string RentalAgreementText { get; private set; } //Text of the rental agreement that gets generated
 
         public RentalAgreement(Tool tool, int rentalDays, int discountPercent, DateTime checkOutDate)
         {
@@ -42,11 +42,13 @@ namespace nm0623
             DueDate = checkOutDate.AddDays(rentalDays);
             DiscountPercent = discountPercent;
             ChargeDays = CalculateChargeDays(tool, checkOutDate, rentalDays);
-            PreDiscountCharge = ChargeDays * tool.DailyCharge;
+            PreDiscountCharge = CalculatePreDiscountCharge();
             DiscountAmount = CalculateDiscount(discountPercent, PreDiscountCharge);
-            FinalCharge = PreDiscountCharge - DiscountAmount;
+            FinalCharge = CalculateFinalCharge();
             RentalAgreementText = FormatRentalAgreement();
         }
+        private decimal CalculateFinalCharge() { return PreDiscountCharge - DiscountAmount; }
+        private decimal CalculatePreDiscountCharge() { return ChargeDays * Tool.DailyCharge; }
         private string FormatRentalAgreement() //Gets the rental agreement text in the form of a string
         {
             return String.Format("Tool code: {0}", Tool.ToolCode) + Environment.NewLine +
@@ -98,7 +100,7 @@ namespace nm0623
             int newRentalDays = rentalDays;
             var holidays = GetHolidays(checkOutDate.Year);
 
-            for (int i = 0; i < rentalDays; i++)
+            for (int i = 1; i <= rentalDays; i++)
             {
                 var day = checkOutDate.AddDays(i);
                 if ((!tool.WeekendCharge) && (day.DayOfWeek == DayOfWeek.Saturday || day.DayOfWeek == DayOfWeek.Sunday)) { newRentalDays--; }
