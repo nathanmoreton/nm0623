@@ -115,11 +115,11 @@ namespace nm0626Testing
                 "Check out date: 07/02/15" + Environment.NewLine +
                 "Due date: 07/11/15" + Environment.NewLine +
                 "Daily rental charge: $2.99" + Environment.NewLine +
-                "Charge days: 6" + Environment.NewLine +
-                "Pre-discount charge: $17.94" + Environment.NewLine +
+                "Charge days: 5" + Environment.NewLine +
+                "Pre-discount charge: $14.95" + Environment.NewLine +
                 "Discount percent: 0%" + Environment.NewLine +
                 "Discount amount: $0.00" + Environment.NewLine +
-                "Final charge: $17.94";
+                "Final charge: $14.95";
 
             //Act
             var rentalAgreement1 = new RentalAgreement(new Tool(toolCode), rentalDays, discountPercent, date);
