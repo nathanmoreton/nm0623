@@ -155,7 +155,7 @@ namespace nm0626Testing
             Assert.AreEqual(expected, rentalAgreement1.RentalAgreementText);
         }
         [TestMethod]
-        public void TestMethod7()
+        public void TestInvalidRentalDays()
         {
             //Arrange
             string toolCode = "JAKR";
@@ -168,7 +168,7 @@ namespace nm0626Testing
         }
 
         [TestMethod]
-        public void TestMethod8()
+        public void TestInvalidToolCode()
         {
             //Arrange
             string toolCode = "ABCD";
