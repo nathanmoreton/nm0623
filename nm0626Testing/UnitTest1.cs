@@ -167,5 +167,19 @@ namespace nm0626Testing
             Assert.ThrowsException<System.ArgumentException>(() => Program.Checkout(toolCode, rentalDays, discountPercent, date));
         }
 
+        [TestMethod]
+        public void TestMethod8()
+        {
+            //Arrange
+            string toolCode = "ABCD";
+            int rentalDays = 10;
+            int discountPercent = 10;
+            DateTime date = Convert.ToDateTime("09/03/15");
+
+            //Assert
+            Assert.ThrowsException<System.ArgumentException>(() => Program.Checkout(toolCode, rentalDays, discountPercent, date));
+        }
+
+
     }
 }
